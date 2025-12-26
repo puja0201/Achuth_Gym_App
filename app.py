@@ -1,12 +1,13 @@
 import streamlit as st
 import pandas as pd
+import os
 
-# Page setup for Mobile
 st.set_page_config(page_title="Achuth Gym", layout="centered")
-
 st.title("🏋️‍♂️ Achuth's Gym Enrollment")
 
-# Form
+# Data save ayye file peru
+data_file = "enrollments.csv"
+
 with st.form("enroll_form"):
     name = st.text_input("Customer Name")
     phone = st.text_input("Phone Number")
@@ -14,5 +15,21 @@ with st.form("enroll_form"):
     submit = st.form_submit_button("Submit Details")
     
     if submit:
+        # Data store cheyadam
+        new_data = {"Name": [name], "Phone": [phone], "Plan": [plan]}
+        df = pd.DataFrame(new_data)
+        if not os.path.isfile(data_file):
+            df.to_csv(data_file, index=False)
+        else:
+            df.to_csv(data_file, mode='a', header=False, index=False)
+            
         st.success(f"Welcome to the Gym, {name}!")
         st.balloons()
+
+# Achuth ki names list chupinchadaniki
+if st.checkbox("Show Admin Dashboard (For Achuth)"):
+    if os.path.isfile(data_file):
+        st.write("### All Enrolled Members")
+        st.table(pd.read_csv(data_file))
+    else:
+        st.write("No one has enrolled yet.")
