@@ -32,8 +32,7 @@ if st.checkbox("Show Admin Dashboard (For Achuth)"):
         st.write("### All Enrolled Members")
         st.table(pd.read_csv(data_file))
     else:
-        st.write("No one has enrolled yet.")
-[7:30 PM, 12/26/2025] sunshine✨: import streamlit as st
+        st.write("No one has enrolled yet.") import streamlit as st
 import pandas as pd
 import os
 
